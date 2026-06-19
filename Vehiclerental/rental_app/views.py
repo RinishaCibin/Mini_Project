@@ -5,6 +5,8 @@ from django.views import View
 from django.urls import reverse_lazy,reverse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from rental_app.models import *
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -33,5 +35,8 @@ class SigninView(FormView):
                     return redirect('signin')
             return render(request,"signin.html",{"form":form_data})
 
-class HomePageView(TemplateView):
-    template_name="home.html"
+class HomePageView(ListView):
+    model = Vehicle                 
+    template_name = "home.html"
+    context_object_name = "vehicles"
+    

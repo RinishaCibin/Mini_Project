@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,4 +8,152 @@
 <body>
     <h2>Homepage</h2>
 </body>
-</html>
+</html> -->
+<style>
+.hero-section{
+    background-image: url('https://st2.depositphotos.com/1022214/5248/i/450/depositphotos_52489449-stock-photo-man-offering-a-car-key.jpgsec');
+    background-size: cover;
+    background-position: center;
+    min-height: 80vh;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+}
+
+.hero-section::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.65);
+}
+
+.hero-section .container{
+    position: relative;
+    z-index: 1;
+}
+</style>
+
+{% extends 'base.html' %}
+{% block base %}
+<section class="hero-section mt-3">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="fw-bold display-6">
+                    Find the Perfect Vehicle
+                </h1>
+                <h1 class="fw-bold display-6 text-primary">
+                    For Every journey
+                </h1>
+                <p class="mt-3 text-dark">
+                    Choose from a wide range of cars, bikes,
+                    scooters and vans at the best prices.
+                    Book easily and enjoy your ride
+                </p>
+                 <a href="#" class="btn btn-primary btn-lg mt-2">
+                    Explore Vehicles
+                </a>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+                     class="img-fluid"
+                     alt="Car">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="container">
+    <div class="row justify-content-between g-6 mt-5">
+    <!-- <div class="row g-6 mt-5">  -->
+  <div class="col-md-3 d-flex ">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+          
+         <h5 class="fs-4"><i class="fa-solid fa-car fa-1x" style="color: rgb(32, 17, 238);"></i>Cars</h5>
+        <small>
+            <a href="#">Explore Cars</a>
+        </small>
+        <img src="https://static.vecteezy.com/system/resources/previews/020/188/852/non_2x/toyota-innova-crysta-top-model-2393cc-automatic-transmission-turbo-engine-6-speed-gear-free-png.png" class="img-fluid">
+       
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 d-flex ">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+          
+         <h5 class="fs-4"><i class="fa-solid fa-motorcycle" style="color: rgb(32,17,238);"></i>Bikes</h5>
+        <small>
+    <a href="#">Explore Bikes</a>
+</small>
+        <img src="https://cdn.keeway.com/benelli-3-0/media/1116/conversions/2560x2180-hd.png" class="img-fluid">
+       
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 d-flex">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+          
+         <h5 class="fs-4"><i class="fa-solid fa-car fa-1x" style="color: rgb(32, 17, 238);"></i>Scooter</h5>
+        <small>
+    <a href="#">Explore Scooters</a>
+</small>
+        <img src="https://bike.zigcdn.com/processedimages/tvs/jupiter/source/jupiter6a2fc4b6e8f2a.jpg" class="img-fluid">
+       
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 d-flex">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+          
+         <h5 class="fs-4"><i class="fa-solid fa-van-shuttle"  style="color: rgb(32, 17, 238);"></i>Van</h5>
+        <small>
+    <a href="#">Explore Vans</a>
+</small>
+        <img src="https://5.imimg.com/data5/SELLER/Default/2024/4/411653289/IB/JY/KG/18819230/urbania-4400wb-van.png" class="img-fluid">
+       
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+  
+<div>
+
+
+    <h1>Popular Vehicle</h1>
+</div>
+
+    <div class="vehicle-container" style="display: flex; gap: 20px; flex-wrap: wrap;">
+        {% for vehicle in vehicles %}
+            <div class="vehicle-card" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px;">
+                {% if vehicle.image %}
+                    <img src="{{ vehicle.image }}" alt="{{ vehicle.vehicle_name }}" style="width: 100%; height: 150px; object-fit: cover;">
+                {% endif %}
+                
+                <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
+                <p><strong>Type:</strong> {{ vehicle.vehicle_type }}</p>
+                <p><strong>Fuel:</strong> {{ vehicle.fuel_type }}</p>
+                <p><strong>Capacity:</strong> {{ vehicle.seating_capacity }} seats</p>
+                <p><strong>Price:</strong> ${{ vehicle.rent_per_day }}/day</p>
+                <p><strong>Status:</strong> {{ vehicle.status }}</p>
+            </div>
+        {% empty %}
+            <p>No vehicles available at the moment.</p>
+        {% endfor %}
+    </div>
+    
+{% endblock %}
+
