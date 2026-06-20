@@ -11,7 +11,7 @@
 </html> -->
 <style>
 .hero-section{
-    background-image: url('https://st2.depositphotos.com/1022214/5248/i/450/depositphotos_52489449-stock-photo-man-offering-a-car-key.jpgsec');
+    background-image: url('https://images.unsplash.com/photo-1765446925539-ddd50bed8692?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fE1lcmNlZGVzJTIwRSUyMENsYXNzJTIwcm9hZCUyMG1vdW50YWlufGVufDB8fDB8fHww');
     background-size: cover;
     background-position: center;
     min-height: 80vh;
@@ -47,7 +47,7 @@
                 <h1 class="fw-bold display-6 text-primary">
                     For Every journey
                 </h1>
-                <p class="mt-3 text-dark">
+                <p class="mt-3 text-dark fw-bold">
                     Choose from a wide range of cars, bikes,
                     scooters and vans at the best prices.
                     Book easily and enjoy your ride
@@ -57,10 +57,10 @@
                 </a>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+                <img src="https://images.unsplash.com/photo-1780296269675-169390638617?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                      class="img-fluid"
                      alt="Car">
-            </div>
+         </div>
         </div>
     </div>
 </section>
@@ -73,9 +73,9 @@
     <div class="card shadow-sm">
       <div class="card-body text-center">
           
-         <h5 class="fs-4"><i class="fa-solid fa-car fa-1x" style="color: rgb(32, 17, 238);"></i>Cars</h5>
+         <h5 class="fs-4 fw-bold"><i class="fa-solid fa-car fa-1x" style="color: rgb(32, 17, 238);"></i>   Cars</h5>
         <small>
-            <a href="#">Explore Cars</a>
+            <a href="#">Explore Cars  <i class="fa-solid fa-arrow-right fs-7"></i></a>
         </small>
         <img src="https://static.vecteezy.com/system/resources/previews/020/188/852/non_2x/toyota-innova-crysta-top-model-2393cc-automatic-transmission-turbo-engine-6-speed-gear-free-png.png" class="img-fluid">
        
@@ -86,9 +86,9 @@
     <div class="card shadow-sm">
       <div class="card-body text-center">
           
-         <h5 class="fs-4"><i class="fa-solid fa-motorcycle" style="color: rgb(32,17,238);"></i>Bikes</h5>
+         <h5 class="fs-4 fw-bold"><i class="fa-solid fa-motorcycle" style="color: rgb(32,17,238);"></i>   Bikes</h5>
         <small>
-    <a href="#">Explore Bikes</a>
+    <a href="#">Explore Bikes  <i class="fa-solid fa-arrow-right fs-7"></i></a>
 </small>
         <img src="https://cdn.keeway.com/benelli-3-0/media/1116/conversions/2560x2180-hd.png" class="img-fluid">
        
@@ -100,9 +100,9 @@
     <div class="card shadow-sm">
       <div class="card-body text-center">
           
-         <h5 class="fs-4"><i class="fa-solid fa-car fa-1x" style="color: rgb(32, 17, 238);"></i>Scooter</h5>
+         <h5 class="fs-4 fw-bold"><i class="fa-solid fa-car fa-1x" style="color: rgb(32, 17, 238);"></i>   Scooter</h5>
         <small>
-    <a href="#">Explore Scooters</a>
+    <a href="#">Explore Scooters  <i class="fa-solid fa-arrow-right fs-7"></i></a>
 </small>
         <img src="https://bike.zigcdn.com/processedimages/tvs/jupiter/source/jupiter6a2fc4b6e8f2a.jpg" class="img-fluid">
        
@@ -114,10 +114,11 @@
     <div class="card shadow-sm">
       <div class="card-body text-center">
           
-         <h5 class="fs-4"><i class="fa-solid fa-van-shuttle"  style="color: rgb(32, 17, 238);"></i>Van</h5>
+         <h5 class="fs-4 fw-bold"><i class="fa-solid fa-van-shuttle"  style="color: rgb(32, 17, 238);"></i>   Van</h5>
         <small>
-    <a href="#">Explore Vans</a>
+    <a href="#">Explore Vans  <i class="fa-solid fa-arrow-right fs-7"></i></a>
 </small>
+
         <img src="https://5.imimg.com/data5/SELLER/Default/2024/4/411653289/IB/JY/KG/18819230/urbania-4400wb-van.png" class="img-fluid">
        
       </div>
@@ -129,31 +130,105 @@
 
 
 
-  
-<div>
+   
+<div class="container my-5" style="font-family: 'Poppins', sans-serif;">
+    <div class="row justify-content-between g-6 mt-5">
 
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark m-0 fs-4">Popular Vehicles</h2>
+        <a href="#" class="text-decoration-none fw-semibold text-primary d-flex align-items-center gap-1 small">
+            View All Vehicles <i class="fa-solid fa-arrow-right fs-7"></i>
+        </a>
+    </div>
+   
 
-    <h1>Popular Vehicle</h1>
-</div>
+    <!-- <div class="vehicle-container" style="display: flex; gap: 20px; flex-wrap: wrap;"> -->
+    <div class="container">
+    <div class="row justify-content-between g-6 mt-2">
 
-    <div class="vehicle-container" style="display: flex; gap: 20px; flex-wrap: wrap;">
         {% for vehicle in vehicles %}
+            
             <div class="vehicle-card" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px;">
-                {% if vehicle.image %}
-                    <img src="{{ vehicle.image }}" alt="{{ vehicle.vehicle_name }}" style="width: 100%; height: 150px; object-fit: cover;">
-                {% endif %}
+                <!-- {% if vehicle.image %} -->
+            <button class="btn btn-success btn-sm">
+                {{ vehicle.status }}
+            </button>
+                    <img src="{{ vehicle.image.url }}" alt="{{ vehicle.vehicle_name }}" style="width: 100%; height: 150px; object-fit: cover;">
+                <!-- {% endif %} -->
                 
-                <h3>{{ vehicle.brand }} {{ vehicle.model }}</h3>
-                <p><strong>Type:</strong> {{ vehicle.vehicle_type }}</p>
-                <p><strong>Fuel:</strong> {{ vehicle.fuel_type }}</p>
-                <p><strong>Capacity:</strong> {{ vehicle.seating_capacity }} seats</p>
-                <p><strong>Price:</strong> ${{ vehicle.rent_per_day }}/day</p>
-                <p><strong>Status:</strong> {{ vehicle.status }}</p>
+                <h3 class="text-center">{{ vehicle.vehicle_name }} </h3>
+                <p class="text-center">{{vehicle.brand}} .  {{ vehicle.vehicle_type }} . {{ vehicle.fuel_type }}<br> {{ vehicle.seating_capacity }} seats </p>
+                 <p class="text-center text-danger fw-bold fa-1x">${{ vehicle.rent_per_day }}/day</p>
+
+            
+                  <a href="#" class="btn btn-primary" role="button">View Details</a>
+                  
+                  <a href="#" class="btn btn-primary" role="button">Book Now</a>
+              
+ 
             </div>
+           
+
         {% empty %}
             <p>No vehicles available at the moment.</p>
         {% endfor %}
     </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"> -->
+
+<section class="container my-5">
+    <div class="row text-center bg-light p-4 rounded shadow-sm">
+
+        <div class="col-md-3">
+            <i class="fa-solid fa-shield-halved fa-2x text-primary mb-3"></i>
+            <h6 class="fw-bold">Verified Vehicles</h6>
+            <p class="small text-muted">
+                All our vehicles are verified and insured.
+            </p>
+        </div>
+
+        <div class="col-md-3">
+            <i class="fa-solid fa-tags fa-2x text-primary mb-3"></i>
+            <h6 class="fw-bold">Best Price Guarantee</h6>
+            <p class="small text-muted">
+                Get the best prices for every ride.
+            </p>
+        </div>
+
+        <div class="col-md-3">
+            <i class="fa-solid fa-headset fa-2x text-primary mb-3"></i>
+            <h6 class="fw-bold">24/7 Support</h6>
+            <p class="small text-muted">
+                We're here to help you anytime, anywhere.
+            </p>
+        </div>
+
+        <div class="col-md-3">
+            <i class="fa-solid fa-thumbs-up fa-2x text-primary mb-3"></i>
+            <h6 class="fw-bold">Easy Booking</h6>
+            <p class="small text-muted">
+                Book your vehicle in just a few clicks.
+            </p>
+        </div>
+
+    </div>
+</section>
     
-{% endblock %}
+{% endblock %} 
+
+
+
+
+
+
+
+
+
+
+
 
