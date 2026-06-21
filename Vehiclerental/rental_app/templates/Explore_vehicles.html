@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block base %}
+<div class="container my-5" style="font-family: 'Poppins', sans-serif;">
+    <div class="row justify-content-between g-6 mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark m-0 fs-4">Popular Vehicles</h2>
+        <a href="#" class="text-decoration-none fw-semibold text-primary d-flex align-items-center gap-1 small">
+            View All Vehicles <i class="fa-solid fa-arrow-right fs-7"></i>
+        </a>
+    </div>
+   
+
+    <!-- <div class="vehicle-container" style="display: flex; gap: 20px; flex-wrap: wrap;"> -->
+    <div class="container">
+    <div class="row justify-content-between g-6 mt-2">
+
+        {% for vehicle in vehicles %}
+            
+            <div class="vehicle-card" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 250px;">
+                <!-- {% if vehicle.image %} -->
+            <button 
+                    class="btn btn-sm
+                        {% if vehicle.status == 'Available' %}
+                        btn-success
+                        {% elif vehicle.status == 'Booked' %}
+                        btn-danger
+                        {% elif vehicle.status == 'Maintenance' %}
+                        btn-warning
+                        {% endif %}">
+    
+                        {{ vehicle.status }}
+                </button>
+                    <img src="{{ vehicle.image.url }}" alt="{{ vehicle.vehicle_name }}" style="width: 100%; height: 150px; object-fit: cover;">
+                <!-- {% endif %} -->
+                
+                <h3 class="text-center">{{ vehicle.vehicle_name }} </h3>
+                <p class="text-center">{{vehicle.brand}} .  {{ vehicle.vehicle_type }} . {{ vehicle.fuel_type }}<br> {{ vehicle.seating_capacity }} seats </p>
+                 <p class="text-center text-danger fw-bold fa-1x">${{ vehicle.rent_per_day }}/day</p>
+
+            
+                  <a href="#" class="btn btn-primary" role="button">View Details</a>
+                  
+                  <a href="#" class="btn btn-primary" role="button">Book Now</a>
+              
+ 
+            </div>
+           
+
+        {% empty %}
+            <p>No vehicles available at the moment.</p>
+        {% endfor %}
+    </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

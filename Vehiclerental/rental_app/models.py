@@ -39,23 +39,23 @@ class Vehicle(models.Model):
     def __str__(self):
         return f"{self.vehicle_name} ({self.registration_number})"
     
-# class Booking(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-#     BOOKING_STATUS = (('Pending', 'Pending'),('Approved', 'Approved'),('Completed', 'Completed'),('Cancelled', 'Cancelled'),)
-#     pickup_location = models.CharField(max_length=255)
-#     pickup_date = models.DateField()
-#     return_date = models.DateField()
-#     actual_return_date = models.DateField(blank=True, null=True)
-#     total_amount = models.DecimalField(max_digits=10,decimal_places=2, default=0)
-#     late_fee = models.DecimalField(max_digits=10,decimal_places=2,default=0)
-#     booking_status = models.CharField(max_length=20,choices=BOOKING_STATUS,default='Pending')
-#     notes = models.TextField(blank=True)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     booking_number = models.CharField( max_length=20,unique=True)
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    BOOKING_STATUS = (('Pending', 'Pending'),('Approved', 'Approved'),('Completed', 'Completed'),('Cancelled', 'Cancelled'),)
+    pickup_location = models.CharField(max_length=255)
+    pickup_date = models.DateField()
+    return_date = models.DateField()
+    actual_return_date = models.DateField(blank=True, null=True)
+    total_amount = models.DecimalField(max_digits=10,decimal_places=2, default=0)
+    late_fee = models.DecimalField(max_digits=10,decimal_places=2,default=0)
+    booking_status = models.CharField(max_length=20,choices=BOOKING_STATUS,default='Pending')
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    booking_number = models.CharField( max_length=20,unique=True)
 
-#     def __str__(self):
-#         return f"{self.user.username} - {self.vehicle.vehicle_name}"
+    def __str__(self):
+        return f"{self.user.username} - {self.vehicle.vehicle_name}"
     
 # class Payment(models.Model):
 #     PAYMENT_STATUS = (('Pending', 'Pending'),('Success', 'Success'),('Failed', 'Failed'),('Refunded', 'Refunded'),)

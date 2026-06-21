@@ -39,4 +39,40 @@ class HomePageView(ListView):
     model = Vehicle                 
     template_name = "home.html"
     context_object_name = "vehicles"
+    def get_queryset(self):
+        return Vehicle.objects.all()[:4]
+
+class ExploreVehicleView(ListView):
+    model = Vehicle
+    template_name = "Explore_vehicles.html"
+    context_object_name = "vehicles"
+
+class CarListView(ListView):
+    model = Vehicle
+    template_name = "carlist.html"
+    context_object_name = "vehicles"
+    def get_queryset(self):
+        return Vehicle.objects.filter(vehicle_type='Car')
+    
+class BikeListView(ListView):
+    model = Vehicle
+    template_name = "bikelist.html"
+    context_object_name = "vehicles"
+    def get_queryset(self):
+        return Vehicle.objects.filter(vehicle_type='Bike')
+    
+class ScooterListView(ListView):
+    model = Vehicle
+    template_name = "scooterlist.html"
+    context_object_name = "vehicles"
+    def get_queryset(self):
+        return Vehicle.objects.filter(vehicle_type='Scooter')
+    
+class VanListView(ListView):
+    model = Vehicle
+    template_name = "vanlist.html"
+    context_object_name = "vehicles"
+    def get_queryset(self):
+        return Vehicle.objects.filter(vehicle_type='van')
+    
     

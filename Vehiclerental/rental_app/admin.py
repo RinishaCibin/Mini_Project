@@ -5,3 +5,4 @@ from rental_app.models import *
 
 # admin.site.register(User)
 admin.site.register(Vehicle)
+admin.site.register(Booking)
