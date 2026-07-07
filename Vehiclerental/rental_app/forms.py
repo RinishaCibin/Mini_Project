@@ -63,8 +63,7 @@ class BookingForm(forms.ModelForm):
         return cleaned_data
     
 
-from django import forms
-from .models import Booking
+
 
 class ReturnBookingForm(forms.ModelForm):
 

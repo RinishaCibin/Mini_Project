@@ -18,6 +18,11 @@ import razorpay
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+
+
 
 
 
@@ -267,7 +272,6 @@ def return_booking(request, pk):
 
 
 
-
 @login_required
 def create_payment(request, booking_id):
     booking = get_object_or_404(
@@ -281,12 +285,22 @@ def create_payment(request, booking_id):
         messages.info(request, "Payment already completed.")
         return redirect("my-bookings")
 
-    amount = int(Decimal(booking.final_amount) * 100)
+    amount = 100
 
-    razorpay_order = client.order.create({
-        "amount": amount,
-        "currency": "INR",
-    })
+    # 🔽 ഈ ഭാഗം ഇവിടെ ചേർക്കുക
+    print("KEY ID:", settings.RAZORPAY_KEY_ID)
+    print("SECRET:", settings.RAZORPAY_KEY_SECRET)
+
+    try:
+        razorpay_order = client.order.create({
+            "amount": amount,
+            "currency": "INR",
+        })
+        print("ORDER CREATED:", razorpay_order)
+
+    except Exception as e:
+        print("RAZORPAY ERROR:", e)
+        return HttpResponse(f"Error: {e}")
 
     payment, created = Payment.objects.get_or_create(
         booking=booking,
@@ -306,6 +320,39 @@ def create_payment(request, booking_id):
         "payment": payment,
         "razorpay_key": settings.RAZORPAY_KEY_ID,
         "amount": amount,
+        "order_id": razorpay_order["id"],
     }
 
     return render(request, "payment.html", context)
+    
+
+
+
+
+
+
+@csrf_exempt
+@login_required
+def verify_payment(request):
+    if request.method == "POST":
+        order_id = request.POST.get("razorpay_order_id")
+        payment_id = request.POST.get("razorpay_payment_id")
+        signature = request.POST.get("razorpay_signature")
+
+        payment = Payment.objects.get(razorpay_order_id=order_id)
+
+        payment.razorpay_payment_id = payment_id
+        payment.razorpay_signature = signature
+        payment.payment_status = "Success"
+        payment.payment_date = timezone.now()
+        payment.save()
+
+        booking = payment.booking
+        booking.payment_status = "Paid"
+        booking.save()
+
+        return JsonResponse({"status": "success"})
+
+
+def payment_success(request):
+    return render(request,"payment_success.html")

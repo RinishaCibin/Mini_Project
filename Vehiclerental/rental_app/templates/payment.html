@@ -44,7 +44,6 @@
         button:hover{
             background:#2874a6;
         }
-
     </style>
 
 </head>
@@ -62,9 +61,7 @@
 
     <p><strong>Total Amount :</strong> ₹{{ booking.final_amount }}</p>
 
-    <button id="pay-btn">
-        Pay Now
-    </button>
+    <button id="pay-btn">Pay Now</button>
 
 </div>
 
@@ -72,28 +69,58 @@
 
 var options = {
 
-    "key": "{{ razorpay_key }}",
+    key: "{{ razorpay_key }}",
 
-    "amount": "{{ amount }}",
+    amount: "{{ amount }}",
 
-    "currency": "INR",
+    currency: "INR",
 
-    "name": "Vehicle Rental System",
+    name: "Vehicle Rental System",
 
-    "description": "Booking Payment",
+    description: "Booking Payment",
 
-    "order_id": "{{ payment.razorpay_order_id }}",
+    order_id: "{{ payment.razorpay_order_id }}",
 
-    "handler": function (response){
+    handler: function (response){
 
-        alert("Payment Successful!");
+        fetch("/verify-payment/", {
 
-        console.log(response);
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}"
+            },
+
+            body:
+                "razorpay_order_id={{ payment.razorpay_order_id }}" +
+                "&razorpay_payment_id=" + response.razorpay_payment_id +
+                "&razorpay_signature=" + response.razorpay_signature
+
+        })
+
+        .then(res => res.json())
+
+        .then(data => {
+
+            alert("Payment Successful!");
+
+            window.location.href = "/payment-success/";
+
+        })
+
+        .catch(error => {
+
+            alert("Something went wrong!");
+
+            console.log(error);
+
+        });
 
     },
 
-    "theme": {
-        "color": "#3399cc"
+    theme: {
+        color: "#3399cc"
     }
 
 };
@@ -106,7 +133,7 @@ document.getElementById("pay-btn").onclick = function(e){
 
     e.preventDefault();
 
-}
+};
 
 </script>
 

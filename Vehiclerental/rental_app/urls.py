@@ -15,6 +15,7 @@ from django.urls import path
 from rental_app.views import *
 from django.conf import settings
 from django.conf.urls.static import static
+from rental_app import views
 
 urlpatterns = [
     path('signup', SignupView.as_view(), name='signup'),
@@ -30,7 +31,10 @@ urlpatterns = [
     path("my-bookings/", MyBookingListView.as_view(), name="my-bookings"),
     path("cancel-booking/<int:pk>/", cancel_booking, name="cancel_booking"),
     path("return-booking/<int:pk>/",return_booking,name="return-booking"),
-    path("payment/<int:booking_id>/",create_payment,name="create_payment"),
+    path("payment/<int:booking_id>/",views.create_payment,name="create_payment"),
+    path("payment-success/",views.payment_success,name="payment_success"),
+    path("verify-payment/", views.verify_payment, name="verify_payment"),
+    
 
 ]
 
