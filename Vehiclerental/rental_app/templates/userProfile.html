@@ -1,0 +1,194 @@
+{% extends 'base.html' %}
+{% block base %}
+
+<style>
+
+body{
+    background: linear-gradient(135deg,#eef2ff,#dbeafe);
+}
+
+.profile-card{
+    border:none;
+    border-radius:25px;
+    overflow:hidden;
+}
+
+.profile-header{
+    height:180px;
+    background:linear-gradient(135deg,#4f46e5,#2563eb);
+}
+
+.profile-image{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    border:6px solid white;
+    object-fit:cover;
+    margin-top:-75px;
+    background:white;
+}
+
+.form-control,
+.form-select{
+    border-radius:12px;
+    padding:12px;
+}
+
+label{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.btn-save{
+    background:#2563eb;
+    color:white;
+    border-radius:30px;
+    padding:10px 35px;
+}
+
+.btn-save:hover{
+    background:#1d4ed8;
+}
+
+.btn-edit{
+    border-radius:30px;
+    padding:10px 35px;
+}
+
+.info-title{
+    font-weight:bold;
+    color:#444;
+}
+
+</style>
+
+<div class="container py-5">
+
+<div class="card shadow-lg profile-card mx-auto" style="max-width:850px;">
+
+<div class="profile-header"></div>
+
+<div class="card-body px-5 pb-5">
+
+<div class="text-center">
+
+{% if form.instance.profile_picture %}
+<img src="{{ form.instance.profile_picture.url }}"
+class="profile-image shadow">
+{% else %}
+<img src="https://via.placeholder.com/150"
+class="profile-image shadow">
+{% endif %}
+
+<h3 class="fw-bold mt-3">
+    {{ request.user.username }}
+</h3>
+
+<p class="text-muted">
+    Vehicle Rental Customer
+</p>
+
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+
+{% csrf_token %}
+{% if form.errors %}
+  <div class="alert alert-danger">
+      {{ form.errors }}
+  </div>
+{% endif %}
+
+<div class="row mt-5">
+
+<div class="col-md-6 mb-4">
+
+<label>
+<i class="fa-solid fa-camera text-primary"></i>
+Profile Picture
+</label>
+
+{{ form.profile_picture }}
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label>
+<i class="fa-solid fa-phone text-primary"></i>
+Phone Number
+</label>
+
+{{ form.phone }}
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label>
+<i class="fa-solid fa-location-dot text-danger"></i>
+Address
+</label>
+
+{{ form.address }}
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label>
+<i class="fa-solid fa-id-card text-success"></i>
+License Number
+</label>
+
+{{ form.license_number }}
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label>
+<i class="fa-solid fa-calendar-days text-warning"></i>
+License Expiry
+</label>
+
+{{ form.license_expiry_date }}
+
+</div>
+
+<div class="col-md-6 mb-4">
+
+<label>
+<i class="fa-solid fa-file-arrow-up text-info"></i>
+Driving License
+</label>
+
+{{ form.driving_license }}
+
+</div>
+
+</div>
+
+<div class="text-center mt-4">
+
+<button class="btn btn-save me-3">
+<i class="fa-solid fa-floppy-disk"></i>
+Update Profile
+</button>
+
+<a href="#" class="btn btn-outline-dark btn-edit">
+<i class="fa-solid fa-user-pen"></i>
+Edit Profile
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

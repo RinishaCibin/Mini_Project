@@ -1,0 +1,215 @@
+
+
+
+
+{% extends 'base.html' %}
+
+{% block base %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-primary">🚗 My Bookings</h2>
+            <p class="text-muted mb-0">
+                View and manage all your vehicle bookings
+            </p>
+        </div>
+    </div>
+
+    {% if bookings %}
+
+    <div class="card border-0 shadow-lg rounded-4">
+
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-dark">
+
+                        <tr>
+                            <th>Actions</th>
+                            <th>Booking ID</th>
+                            <th>Vehicle</th>
+                            <th>Pickup Date</th>
+                            <th>Return Date</th>
+                            <th>Booking Amount</th>
+                            <th>Late Fee</th>
+                            <th>Final Amount</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+<tbody>
+
+{% for booking in bookings %}
+
+<tr>
+
+    <td class="d-flex gap-2">
+
+        
+
+    {% if booking.booking_status == "Pending" %}
+
+        <a href="{% url 'cancel_booking' booking.pk %}"
+           class="btn btn-danger btn-sm">
+            Cancel
+        </a>
+
+    {% elif booking.booking_status == "Approved" %}
+
+        <a href="{% url 'return-booking' booking.pk %}"
+           class="btn btn-success btn-sm">
+            Return Vehicle
+        </a>
+
+    {% elif booking.booking_status == "Completed" %}
+
+        <span class="badge bg-success">
+            Returned
+        </span>
+
+    {% elif booking.booking_status == "Cancelled" %}
+
+        <span class="badge bg-secondary">
+            Cancelled
+        </span>
+
+    {% endif %}
+
+
+
+    </td>
+
+    <td>
+        {{ booking.booking_number }}
+    </td>
+
+    <td>
+        {{ booking.vehicle.vehicle_name }}
+    </td>
+
+    <td>{{ booking.pickup_date }}</td>
+
+    <td>{{ booking.return_date }}</td>
+
+    <td class="fw-bold text-success">
+    ₹{{ booking.booking_amount }}
+    </td>
+
+    <td>
+    {% if booking.late_fee %}
+        ₹{{ booking.late_fee }}
+    {% else %}
+        ₹0
+    {% endif %}
+    </td>
+
+<td class="fw-bold text-primary">
+    ₹{{ booking.final_amount }}
+</td>
+
+
+<!-- {% if booking.payment_status == "Pending" %}
+<a href="{% url 'create_payment' booking.id %}"
+   class="bg-green-600 text-white px-4 py-2 rounded">
+    Pay Now
+</a>
+{% endif %}
+    
+
+    <td>
+
+        {% if booking.booking_status == "Pending" %}
+            <span class="badge bg-warning text-dark">Pending</span>
+
+        {% elif booking.booking_status == "Approved" %}
+            <span class="badge bg-success">Approved</span>
+
+        {% elif booking.booking_status == "Cancelled" %}
+            <span class="badge bg-danger">Cancelled</span>
+
+        {% elif booking.booking_status == "Completed" %}
+            <span class="badge bg-secondary">Completed</span>
+
+        {% endif %} 
+
+    </td> -->
+
+
+    <td>
+    {% if booking.payment_status == "Pending" %}
+        <a href="{% url 'create_payment' booking.id %}"
+           class="btn btn-primary btn-sm">
+            Pay Now
+        </a>
+
+    {% elif booking.payment_status == "Paid" %}
+        <span class="badge bg-success">
+            Paid
+        </span>
+    {% endif %}
+</td>
+
+<td>
+
+    {% if booking.booking_status == "Pending" %}
+        <span class="badge bg-warning text-dark">Pending</span>
+
+    {% elif booking.booking_status == "Approved" %}
+        <span class="badge bg-success">Approved</span>
+
+    {% elif booking.booking_status == "Cancelled" %}
+        <span class="badge bg-danger">Cancelled</span>
+
+    {% elif booking.booking_status == "Completed" %}
+        <span class="badge bg-secondary">Completed</span>
+
+    {% endif %}
+
+</td>
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+</div>
+
+    {% else %}
+
+    <div class="card border-0 shadow rounded-4">
+
+        <div class="card-body text-center py-5">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/7486/7486740.png"
+                 width="120"
+                 class="mb-3">
+
+            <h3>No Bookings Yet</h3>
+
+            <p class="text-muted">
+                You haven't booked any vehicles yet.
+            </p>
+
+            <a href="{% url 'homepage' %}"class="btn btn-primary px-4">Explore Vehicles</a>
+
+ 
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block base %}
+
+<div class="container mt-5">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-success text-white">
+
+            <h3>Return Vehicle</h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <table class="table">
+
+                <tr>
+                    <th>Booking Number</th>
+                    <td>{{ booking.booking_number }}</td>
+                </tr>
+
+                <tr>
+                    <th>Vehicle</th>
+                    <td>{{ booking.vehicle.vehicle_name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Pickup Date</th>
+                    <td>{{ booking.pickup_date }}</td>
+                </tr>
+
+                <tr>
+                    <th>Expected Return</th>
+                    <td>{{ booking.return_date }}</td>
+                </tr>
+
+                <tr>
+                    <th>Total Amount</th>
+                    <td>₹{{ booking.booking_amount }}</td>
+                </tr>
+
+            </table>
+
+            <form method="post">
+
+                {% csrf_token %}
+                <!-- <div class="alert alert-info">
+
+    <h5>{{ booking.vehicle.vehicle_name }}</h5>
+
+    <p>
+        <strong>Booking No:</strong>
+        {{ booking.booking_number }}
+    </p>
+
+    <p>
+        <strong>Pickup Date:</strong>
+        {{ booking.pickup_date }}
+    </p>
+
+    <p>
+        <strong>Expected Return:</strong>
+        {{ booking.return_date }}
+    </p>
+
+    <p>
+        <strong>Total Amount:</strong>
+        ₹{{ booking.total_amount }}
+    </p>
+
+</div> -->
+
+
+                {{ form.as_p }}
+
+                <button class="btn btn-success">
+                    Submit Return
+                </button>
+
+                <a href="{% url 'my-bookings' %}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

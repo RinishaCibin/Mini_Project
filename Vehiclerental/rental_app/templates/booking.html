@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block base %}
+
+<div class="container mt-5">
+    <div class="card shadow p-4">
+
+        <h3 class="mb-4">Book Vehicle</h3>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">
+                Confirm Booking
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

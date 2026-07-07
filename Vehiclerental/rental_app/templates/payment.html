@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f5f5f5;
+        }
+
+        .container{
+            width:400px;
+            margin:80px auto;
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,.2);
+            text-align:center;
+        }
+
+        h2{
+            color:#333;
+        }
+
+        p{
+            font-size:18px;
+        }
+
+        button{
+            background:#3399cc;
+            color:white;
+            border:none;
+            padding:12px 25px;
+            border-radius:5px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#2874a6;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Vehicle Rental Payment</h2>
+
+    <hr>
+
+    <p><strong>Booking ID :</strong> {{ booking.booking_number }}</p>
+
+    <p><strong>Vehicle :</strong> {{ booking.vehicle.vehicle_name }}</p>
+
+    <p><strong>Total Amount :</strong> ₹{{ booking.final_amount }}</p>
+
+    <button id="pay-btn">
+        Pay Now
+    </button>
+
+</div>
+
+<script>
+
+var options = {
+
+    "key": "{{ razorpay_key }}",
+
+    "amount": "{{ amount }}",
+
+    "currency": "INR",
+
+    "name": "Vehicle Rental System",
+
+    "description": "Booking Payment",
+
+    "order_id": "{{ payment.razorpay_order_id }}",
+
+    "handler": function (response){
+
+        alert("Payment Successful!");
+
+        console.log(response);
+
+    },
+
+    "theme": {
+        "color": "#3399cc"
+    }
+
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById("pay-btn").onclick = function(e){
+
+    rzp.open();
+
+    e.preventDefault();
+
+}
+
+</script>
+
+</body>
+</html>

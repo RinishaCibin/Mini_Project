@@ -24,6 +24,13 @@ urlpatterns = [
     path('bikelist',BikeListView.as_view(),name='bikelist'),
     path('scooterlist',ScooterListView.as_view(),name='scooterlist'),
     path('vanlist',VanListView.as_view(),name='vanlist'),
+    path('vehicle/<int:pk>/', VehicleDetailView.as_view(), name='vehicle_detail'),
+    path("profile/", ProfileCreateView.as_view(), name='profile'),
+    path( "booking/<int:pk>/",BookingCreateView.as_view(),name="booking"),
+    path("my-bookings/", MyBookingListView.as_view(), name="my-bookings"),
+    path("cancel-booking/<int:pk>/", cancel_booking, name="cancel_booking"),
+    path("return-booking/<int:pk>/",return_booking,name="return-booking"),
+    path("payment/<int:booking_id>/",create_payment,name="create_payment"),
 
 ]
 
