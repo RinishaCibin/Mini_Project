@@ -66,37 +66,122 @@ class Vehicle(models.Model):
     def __str__(self):
         return f"{self.vehicle_name} ({self.registration_number})"
     
+# class Booking(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+#     BOOKING_STATUS = (('Pending', 'Pending'),('Approved', 'Approved'),('Completed', 'Completed'),('Cancelled', 'Cancelled'),)
+#     PAYMENT_STATUS = (('Pending', 'Pending'),('Paid', 'Paid'),)
+#     # pickup_location = models.CharField(max_length=255)
+#     PICKUP_LOCATIONS = [
+#     ("Kochi", "Kochi"),
+#     ("Thrissur", "Thrissur"),
+#     ("Kozhikode", "Kozhikode"),
+#     ("Kannur", "Kannur"),
+#     ("Thiruvananthapuram", "Thiruvananthapuram"),
+# ]
+
+# class Booking(models.Model):
+#     pickup_location = models.CharField(
+#         max_length=100,
+#         choices=PICKUP_LOCATIONS)
+
+#     pickup_date = models.DateField()
+#     return_date = models.DateField()
+#     actual_return_date = models.DateField(blank=True, null=True)
+   
+
+#     # Return സമയത്ത് calculate ചെയ്യുന്ന late fee
+#     late_fee = models.DecimalField(
+#         max_digits=10,
+#         decimal_places=2,
+#         default=0
+#     )
+#     final_amount = models.DecimalField(
+#         max_digits=10,
+#         decimal_places=2,
+#         default=0
+#     )
+
+#     booking_amount = models.DecimalField(max_digits=10,decimal_places=2, default=0)
+#     booking_status = models.CharField(max_length=20,choices=BOOKING_STATUS,default='Pending')
+#     payment_status = models.CharField(max_length=20,choices=PAYMENT_STATUS,default='Pending'
+# )
+
+#     notes = models.TextField(blank=True)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     booking_number = models.CharField( max_length=20,unique=True)
+
+#     def __str__(self):
+#         return f"{self.user.username} - {self.vehicle.vehicle_name}"
+
+
 class Booking(models.Model):
+
+    BOOKING_STATUS = (
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+    )
+
+    PAYMENT_STATUS = (
+        ('Pending', 'Pending'),
+        ('Paid', 'Paid'),
+    )
+
+    PICKUP_LOCATIONS = [
+        ("Kochi", "Kochi"),
+        ("Thrissur", "Thrissur"),
+        ("Kozhikode", "Kozhikode"),
+        ("Kannur", "Kannur"),
+        ("Thiruvananthapuram", "Thiruvananthapuram"),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    BOOKING_STATUS = (('Pending', 'Pending'),('Approved', 'Approved'),('Completed', 'Completed'),('Cancelled', 'Cancelled'),)
-    PAYMENT_STATUS = (('Pending', 'Pending'),('Paid', 'Paid'),)
-    pickup_location = models.CharField(max_length=255)
+
+    pickup_location = models.CharField(
+        max_length=100,
+        choices=PICKUP_LOCATIONS
+    )
+
     pickup_date = models.DateField()
     return_date = models.DateField()
     actual_return_date = models.DateField(blank=True, null=True)
-   
 
-    # Return സമയത്ത് calculate ചെയ്യുന്ന late fee
     late_fee = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0
     )
+
     final_amount = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0
     )
 
-    booking_amount = models.DecimalField(max_digits=10,decimal_places=2, default=0)
-    booking_status = models.CharField(max_length=20,choices=BOOKING_STATUS,default='Pending')
-    payment_status = models.CharField(max_length=20,choices=PAYMENT_STATUS,default='Pending'
-)
+    booking_amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    booking_status = models.CharField(
+        max_length=20,
+        choices=BOOKING_STATUS,
+        default='Pending'
+    )
+
+    payment_status = models.CharField(
+        max_length=20,
+        choices=PAYMENT_STATUS,
+        default='Pending'
+    )
 
     notes = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    booking_number = models.CharField( max_length=20,unique=True)
+    booking_number = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.vehicle.vehicle_name}"
@@ -126,16 +211,81 @@ class Payment(models.Model):
     def __str__(self):
         return self.razorpay_order_id
     
-# class Feedback(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-#     rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-#     comment = models.TextField()
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     class Meta:
-#         unique_together = ('user', 'vehicle')
-#     def __str__(self):
-#         return f"{self.user.username} - {self.vehicle.vehicle_name}"
+class Feedback(models.Model):
+    RATING_CHOICES = (
+        (1, "1 Star"),
+        (2, "2 Stars"),
+        (3, "3 Stars"),
+        (4, "4 Stars"),
+        (5, "5 Stars"),
+    )
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    booking = models.OneToOneField(Booking, on_delete=models.CASCADE)
+
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    comment = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.vehicle.vehicle_name} ({self.rating}⭐)"
+    
+
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    title = models.CharField(max_length=100)
+    message = models.TextField()
+
+    is_read = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+    
+
+class ChatRoom(models.Model):
+
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return self.user.username
+    
+    
+class ChatMessage(models.Model):
+
+    room = models.ForeignKey(
+        ChatRoom,
+        on_delete=models.CASCADE,
+        related_name="messages"
+    )
+
+    sender = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    message = models.TextField()
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        ordering = ["created_at"]
+
+    def __str__(self):
+        return f"{self.sender.username} : {self.message[:25]}"
 
 
 

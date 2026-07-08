@@ -52,8 +52,6 @@
 
     <td class="d-flex gap-2">
 
-        
-
     {% if booking.booking_status == "Pending" %}
 
         <a href="{% url 'cancel_booking' booking.pk %}"
@@ -74,6 +72,21 @@
             Returned
         </span>
 
+        {% if booking.feedback %}
+
+    <span class="badge bg-info">
+        Feedback Submitted
+    </span>
+
+{% else %}
+
+    <a href="{% url 'feedback' booking.id %}"
+       class="btn btn-warning btn-sm">
+        Give Feedback
+    </a>
+
+{% endif %}
+
     {% elif booking.booking_status == "Cancelled" %}
 
         <span class="badge bg-secondary">
@@ -82,9 +95,7 @@
 
     {% endif %}
 
-
-
-    </td>
+</td>
 
     <td>
         {{ booking.booking_number }}
@@ -115,31 +126,6 @@
 </td>
 
 
-<!-- {% if booking.payment_status == "Pending" %}
-<a href="{% url 'create_payment' booking.id %}"
-   class="bg-green-600 text-white px-4 py-2 rounded">
-    Pay Now
-</a>
-{% endif %}
-    
-
-    <td>
-
-        {% if booking.booking_status == "Pending" %}
-            <span class="badge bg-warning text-dark">Pending</span>
-
-        {% elif booking.booking_status == "Approved" %}
-            <span class="badge bg-success">Approved</span>
-
-        {% elif booking.booking_status == "Cancelled" %}
-            <span class="badge bg-danger">Cancelled</span>
-
-        {% elif booking.booking_status == "Completed" %}
-            <span class="badge bg-secondary">Completed</span>
-
-        {% endif %} 
-
-    </td> -->
 
 
     <td>

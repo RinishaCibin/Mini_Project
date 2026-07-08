@@ -47,3 +47,20 @@ class BookingAdmin(admin.ModelAdmin):
             obj.vehicle.status = "Available"
 
         obj.vehicle.save()
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ["booking", "amount", "payment_status", "payment_date"]
+
+
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ["user", "vehicle", "rating", "created_at"]
+    list_filter = ["rating", "created_at"]
+    search_fields = ["user__username", "vehicle__vehicle_name"]
+
+
+admin.site.register(Notification)
+
+admin.site.register(ChatRoom)
+admin.site.register(ChatMessage)

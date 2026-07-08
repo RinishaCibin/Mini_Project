@@ -88,4 +88,22 @@ class ReturnBookingForm(forms.ModelForm):
         }
 
 
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ["rating", "comment"]
+
+        widgets = {
+            "rating": forms.Select(attrs={
+                "class": "form-select"
+            }),
+
+            "comment": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 4,
+                "placeholder": "Write your feedback here..."
+            }),
+        }
+
+
  
