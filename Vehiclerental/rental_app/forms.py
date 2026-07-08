@@ -32,9 +32,8 @@ class BookingForm(forms.ModelForm):
         ]
 
         widgets = {
-            "pickup_location": forms.TextInput(attrs={
-                "class": "form-control",
-                "placeholder": "Pickup Location"
+            "pickup_location": forms.Select(attrs={
+              "class": "form-select"
             }),
             "pickup_date": forms.DateInput(attrs={
                 "type": "date",
